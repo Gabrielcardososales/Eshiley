@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quer namorar comigo? 💘</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #fff0f5;
+            padding: 20px;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #ff1493;
+        }
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            position: relative;
+        }
+        #sim {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #32cd32;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 200px;
+        }
+        #nao {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 200px;
+            position: static; /* Para mobile, mudamos a estratégia */
+            margin-top: 10px;
+        }
+        #mensagem {
+            margin-top: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #ff1493;
+            min-height: 60px;
+            padding: 10px;
+        }
+        .coracao {
+            font-size: 1.5em;
+            animation: pulsar 1.5s infinite;
+        }
+        @keyframes pulsar {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <h1>💖 Quer namorar comigo? 💖</h1>
+    
+    <div class="buttons">
+        <button id="sim">SIM!</button>
+        <button id="nao">NÃO</button>
+    </div>
+    
+    <div id="mensagem"></div>
+
+    <script>
+        const btnSim = document.getElementById('sim');
+        const btnNao = document.getElementById('nao');
+        const mensagem = document.getElementById('mensagem');
+        const respostasNegativas = [
+            "Tem certeza? 😢",
+            "Pensa de novo! 💔",
+            "Olha meus olhos tristes... 🥺",
+            "Você não resiste a mim! 😏",
+            "Última chance... 😘",
+            "CLICA NO SIM, POR FAVOR! ❤️"
+        ];
+        let tentativas = 0;
+
+        // Função para mover o botão "NÃO" aleatoriamente
+        function moverNao() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            btnNao.style.position = 'absolute';
+            btnNao.style.left = x + 'px';
+            btnNao.style.top = y + 'px';
+        }
+
+        // No celular, o botão "NÃO" se move quando tentam clicar
+        btnNao.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // Evita zoom acidental
+            moverNao();
+            responderNao();
+        });
+
+        btnNao.addEventListener('click', function(e) {
+            e.preventDefault();
+            moverNao();
+            responderNao();
+        });
+
+        function responderNao() {
+            if (tentativas < respostasNegativas.length) {
+                mensagem.textContent = respostasNegativas[tentativas];
+                tentativas++;
+            } else {
+                mensagem.innerHTML = "Chega de fugir! <span class='coracao'>💘</span> O SIM é a única opção!";
+            }
+        }
+
+        btnSim.addEventListener('click', () => {
+            mensagem.innerHTML = "<span class='coracao'>💘</span> SABIA QUE VOCÊ DIRIA SIM! EU TE AMO! <span class='coracao'>💘</span>";
+            btnNao.style.display = "none";
+        });
+    </script>
+</body>
+</html>
